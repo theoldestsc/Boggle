@@ -12,6 +12,7 @@ class Board
 
         /* Getters */
         const std::vector<std::vector<char>>& get_map() const;
+        /* Setters */
         void set_cell_value(size_t row, size_t column, const char& ch);
 
     private:

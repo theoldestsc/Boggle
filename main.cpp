@@ -12,6 +12,16 @@
 
 #include "sources/block.h"
 
+/*TODO:
+    Грани рисуются тольо для визуального представления,
+    кубики можно будет типа поворачивать во двум осям.
+    По двойному клику в направлении
+    взависимости от положения мышки на верхней грани
+    Знание на какой конкретно грани мышка нас интересует
+    только из косметических целей создания
+    эффекта нажатия от игрока
+*/
+
 class GameWindow : public QWidget
 {
     public:
@@ -155,8 +165,8 @@ class GameWindow : public QWidget
             m_view->setTransform(cube_transform);
             m_view->centerOn(0, 0);
 
-            int rows = 6;
-            int cols = 6;
+            int rows = 5;
+            int cols = 5;
 
             int x_offset = 10;
             int y_offset = 10;
@@ -246,10 +256,10 @@ class GameWindow : public QWidget
                 Block* clicked_block = dynamic_cast<Block*>(clicked_item);
                 if(clicked_block)
                 {
-                    QPointF blockPos = clicked_block->mapFromScene(scene_pos);
+                    QPointF block_pos = clicked_block->mapFromScene(scene_pos);
 
                     // Определяем грань
-                    Block::FACE clicked_face = clicked_block->get_face_at_point(blockPos);
+                    Block::FACE clicked_face = clicked_block->get_face_at_point(block_pos);
                     //clicked_block->set_face_selected(clicked_face);
                     //clicked_block->toggle();
                     clicked_block->setPressed(true);

@@ -7,50 +7,47 @@
 //Набор кубиков 6x6:
 
 #define N_CUBE_EDGES 6
-#define N_CUBES6x6 36
+#define N_ROW_SIZE 5
 
+/*
+TODO: Класс BoadrdGenerator.
+А Board сам по себе должен принимать готовое поле
+*/
 constexpr auto CUBES = std::to_array<std::array<char, N_CUBE_EDGES>>({
-                                            {'A','A','A','F','R','S'},
-                                            {'A','E','A','N','G','N'},
-                                            {'A','A','S','E','C','M'},
-                                            {'A','A','F','A','R','S'},
-                                            {'A','G','N','E','E','E'},
-                                            {'A','E','O','I','U','U'},
-                                            {'A','B','B','J','O','O'},
-                                            {'B','D','E','I','S','X'},
-                                            {'D','D','O','N','T','U'},
-                                            {'E','E','E','H','N','W'},
-                                            {'E','E','H','I','T','T'},
-                                            {'E','F','F','K','P','S'},
-                                            {'E','I','I','L','S','T'},
-                                            {'E','L','R','T','T','Y'},
-                                            {'E','I','O','S','S','T'},
-                                            {'F','S','U','I','P','R'},
-                                            {'G','H','G','R','N','O'},
-                                            {'H','H','L','R','D','O'},
-                                            {'I','M','N','N','G','E'},
-                                            {'I','F','G','R','E','V'},
-                                            {'L','D','R','D','H','O'},
-                                            {'N','O','N','N','E','E'},
-                                            {'O','U','U','E','M','O'},
-                                            {'R','T','T','T','L','Y'},
-                                            {'S','A','C','O','R','T'},
-                                            {'S','E','L','R','U','T'},
-                                            {'U','T','O','I','E','S'},
-                                            {'W','N','O','T','W','T'},
-                                            {'A','E','I','T','M','O'},
-                                            {'C','O','U','E','G','I'},
-                                            {'D','N','D','H','I','S'},
-                                            {'P','A','L','R','I','S'},
-                                            {'R','U','N','D','D','S'},
-                                            {'W','I','I','I','R','S'},
-                                            {'Y','L','E','G','U','B'},
-                                            {'Z','V','U','Q','U','N'}
+                                            {'A', 'A', 'A', 'F', 'R', 'S'},
+                                            {'A', 'A', 'E', 'E', 'E', 'E'},
+                                            {'A', 'A', 'F', 'I', 'R', 'S'},
+                                            {'A', 'D', 'E', 'N', 'N', 'N'},
+                                            {'A', 'E', 'E', 'E', 'E', 'M'},
+
+                                            {'A', 'E', 'E', 'G', 'M', 'U'},
+                                            {'A', 'E', 'G', 'M', 'N', 'N'},
+                                            {'A', 'F', 'I', 'R', 'S', 'Y'},
+                                            {'B', 'J', 'K', 'Q', 'X', 'Z'},
+                                            {'C', 'C', 'E', 'N', 'S', 'T'},
+
+                                            {'C', 'E', 'I', 'I', 'L', 'T'},
+                                            {'C', 'E', 'I', 'L', 'P', 'T'},
+                                            {'C', 'E', 'I', 'P', 'S', 'T'},
+                                            {'D', 'D', 'H', 'N', 'O', 'T'},
+                                            {'D', 'H', 'H', 'L', 'O', 'R'},
+
+                                            {'D', 'H', 'L', 'N', 'O', 'R'},
+                                            {'D', 'H', 'L', 'N', 'O', 'R'},
+                                            {'E', 'I', 'I', 'I', 'T', 'T'},
+                                            {'E', 'M', 'O', 'T', 'T', 'T'},
+                                            {'E', 'N', 'S', 'S', 'S', 'U'},
+
+                                            {'F', 'I', 'P', 'R', 'S', 'Y'},
+                                            {'G', 'O', 'R', 'R', 'V', 'W'},
+                                            {'I', 'P', 'R', 'R', 'R', 'Y'},
+                                            {'N', 'O', 'O', 'T', 'U', 'W'},
+                                            {'O', 'O', 'O', 'T', 'T', 'U'}
                                         });
 
 
 
-Board::Board() : m_map(CUBES[0].size(), std::vector<char>(CUBES[0].size(), ' '))
+Board::Board() : m_map(N_ROW_SIZE, std::vector<char>(N_ROW_SIZE, ' '))
 {
 
 }
@@ -66,6 +63,7 @@ void Board::set_cell_value(size_t row,
     m_map[row][column] = ch;
 }
 
+//TODO: generate cubes from words
 void Board::generate_map()
 {
     // Инициализируем генератор текущим временем

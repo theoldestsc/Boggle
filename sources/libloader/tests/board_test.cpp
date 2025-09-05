@@ -51,9 +51,11 @@ class BoardTest : public QObject
 
             board.set_cell_value(0, 0, 'A');
 
+            std::cout << map << std::endl;
+            std::cout << std::endl;
             QVERIFY(map.at(0).at(0) == 'A');
+            std::cout << map << std::endl;
         }
-
     };
 
 QTEST_MAIN(BoardTest)
