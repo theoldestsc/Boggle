@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 project(BoggleGame VERSION 1.0 LANGUAGES CXX)
 
-
-
+# Новый стандарт C++
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 # Находим системный Qt 6.8+
 # CMake автоматически ищет в /usr/lib/x86_64-linux-gnu/cmake/Qt6
 find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Test)
@@ -29,12 +31,6 @@ Qt6::Gui
 Qt6::Widgets
 )
 
-# Установка стандарта C++
-set_target_properties(${PROJECT_NAME} PROPERTIES
-CXX_STANDARD 17
-CXX_STANDARD_REQUIRED ON
-)
-
 enable_testing()
 
 add_executable(loader_test
@@ -57,17 +53,18 @@ Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Test
 add_test(NAME LoaderTests COMMAND loader_test)
 
 
-add_executable(lettersmap_test
-               sources/libloader/tests/lettersmap_test.cpp
-               sources/lettersmap.h
+add_executable(board_test
+               sources/libloader/tests/board_test.cpp
+               sources/board.h
+               sources/board.cpp
                ${RESOURCES})
 
-set_target_properties(lettersmap_test PROPERTIES
+set_target_properties(board_test PROPERTIES
                      AUTOMOC ON
                      AUTOUIC ON
                      AUTORCC ON)
 
-target_link_libraries(lettersmap_test
+target_link_libraries(board_test
                       Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Test)
 
-add_test(NAME LetterMapTests COMMAND lettersmap_test)
+add_test(NAME LetterMapTests COMMAND board_test)

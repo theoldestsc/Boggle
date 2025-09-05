@@ -9,10 +9,11 @@ class LoaderTest : public QObject
     private:
         Loader m_loader; 
     private slots:
-        //void initTestCase();      // вызывается один раз перед всеми тестами
-        //void cleanupTestCase();   // вызывается один раз после всех тестов
-        //void init();              // вызывается перед каждым тестом
-        //void cleanup();           // вызывается после каждого теста
+        /*
+        void initTestCase();       вызывается один раз перед всеми тестами
+        void cleanupTestCase();    вызывается один раз после всех тестов
+        void init();               вызывается перед каждым тестом
+        void cleanup();            вызывается после каждого теста */
 
         void initTestCase()
         {
@@ -20,11 +21,11 @@ class LoaderTest : public QObject
             m_loader.init();
         }
 
-        void cleanupTestCase()
-        {
-            return;
-            /* [NOTE] Один раз после всех тестов */
-        }
+        //void cleanupTestCase()
+        //{
+        //    return;
+        //    /* [NOTE] Один раз после всех тестов */
+        //}
 
         void testInitialization()
         {
