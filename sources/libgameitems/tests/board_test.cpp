@@ -1,5 +1,5 @@
 #include <QtTest>
-#include "../../board.h"
+#include "../src/board.h"
 #include <iostream>
 //TODO: Записать весь процесс создания
 

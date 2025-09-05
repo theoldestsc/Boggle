@@ -13,6 +13,11 @@
 TODO: Класс BoadrdGenerator.
 А Board сам по себе должен принимать готовое поле
 */
+
+/*
+    TODO: m_map должен быть набором уже объектов класса CUBE,
+    который можно повернуть и сменить у него current_top()
+*/
 constexpr auto CUBES = std::to_array<std::array<char, N_CUBE_EDGES>>({
                                             {'A', 'A', 'A', 'F', 'R', 'S'},
                                             {'A', 'A', 'E', 'E', 'E', 'E'},
