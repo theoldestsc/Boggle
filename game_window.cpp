@@ -141,8 +141,9 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
     cube_transform.rotate(-45);
     m_view->setTransform(cube_transform);
     m_view->centerOn(0, 0);
-    int rows = 5;
-    int cols = 5;
+    const auto& map = board.get_map();
+    int rows = map.size();
+    int cols = map.size();
     int x_offset = 10;
     int y_offset = 10;
     //[NOTE]: 100 это ребро куба
@@ -152,7 +153,6 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
     int grid_height = (rows - 1) * spacing_y;
     int start_x = - grid_width / 2;
     int start_y = - grid_height / 2;
-    const auto& map = board.get_map();
 
     for (int row = 0; row < rows; ++row)
     {
@@ -195,10 +195,10 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
             const int cube_width = 100.0;
             //block->setPos((- cube_width - x_offset) * col,
             //              (cube_width + y_offset) * row );
-            //TODO: Тоже пока захардкожено image.w() image.h()
-            //qDebug() << block->boundingRect();
-            block->setPos(pos_x - 249 /2, pos_y - 249 /2);
-            //qDebug() << pos_x << " " << pos_y;
+
+            block->setPos(pos_x - block->boundingRect().width() / 4,
+                          pos_y - block->boundingRect().height() / 4);
+
         }
     }
 }
