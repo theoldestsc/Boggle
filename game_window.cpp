@@ -10,25 +10,11 @@
 #include <iostream>
 
 
-std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<Cube>>& map)
-{
-    for(size_t row = 0; row < map.size(); ++row)
-    {
-        for(size_t column = 0; column < map.at(row).size(); ++column)
-            os << map.at(row).at(column).getSideText(FACE::TOP) << " ";
-        os << std::endl;
-    }
-
-    return os;
-}
-
 GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 {
 
-//Понять почему не декларируется в хедере
-
     board.generate_map();
-    //std::cout << board.get_map() << std::endl;
+
     //TODO: каждый уровень в одной цветовой палитре
     QStringList colors = {
     ":/images/colors/blue_mask.png",
@@ -166,12 +152,31 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
     int grid_height = (rows - 1) * spacing_y;
     int start_x = - grid_width / 2;
     int start_y = - grid_height / 2;
+    const auto& map = board.get_map();
+
     for (int row = 0; row < rows; ++row)
     {
         for (int col = 0; col < cols; ++col)
         {
             int idx = row * cols + col;
+            auto& cube = map.at(row).at(col);
+            const char& ch_top = cube.getSideText(FACE::TOP);
+            const char& ch_left = cube.getSideText(FACE::LEFT);
+            const char& ch_right = cube.getSideText(FACE::RIGHT);
+            QString top_icon_name = QString(":/images/letters/") + QString(ch_top).toLower() + "_top";
+            QString left_icon_name = QString(":/images/letters/") + QString(ch_left).toLower() + "_left";
+            QString right_icon_name = QString(":/images/letters/")+ QString(ch_right).toLower()  + "_right";
             Block* block = new Block(":/images/block_white.png",
+                                     colors[idx % colors.size()],
+                                     top_icon_name,
+                                     left_icon_name,
+                                     right_icon_name,
+                                     ":/images/colors/shading_mask.png",
+                                     ":/images/colors/light_mask",
+                                     ":/images/edges/top_chosen.png",
+                                     ":/images/edges/left_chosen.png",
+                                     ":/images/edges/right_chosen.png");
+            /* Block* block = new Block(":/images/block_white.png",
                                      colors[idx % colors.size()],
                                      tops[idx % tops.size()],
                                      lefts[idx % lefts.size()],
@@ -180,7 +185,7 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
                                      ":/images/colors/light_mask",
                                      ":/images/edges/top_chosen.png",
                                      ":/images/edges/left_chosen.png",
-                                     ":/images/edges/right_chosen.png");
+                                     ":/images/edges/right_chosen.png"); */
             block->setName(QString("block_%1").arg(idx));
             block->setZValue(row + 1);
             m_scene->addItem(block);

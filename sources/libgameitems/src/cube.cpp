@@ -1,6 +1,7 @@
 #include "cube.h"
 #include <cassert>
-
+#include <iostream>
+#include <algorithm>
 
 Cube::Cube(const std::array<char, FACE::SIZE>& text)
 {
@@ -16,6 +17,21 @@ const char& Cube::getSideText(FACE face) const
 {
     assert(static_cast<size_t>(face) < m_face_value.size());
     return m_face_value.at(face);
+}
+
+void Cube::setTextToSide(FACE face, char text)
+{
+    assert(static_cast<size_t>(face) < m_face_value.size());
+
+    const auto it = std::find(m_face_value.begin(), m_face_value.end(), text);
+
+    assert(("Cube dosn't has this letter: ", it != m_face_value.end()));
+
+    const size_t text_face = std::distance(m_face_value.begin(), it);
+
+    auto const current = m_face_value.at(face);
+    m_face_value[text_face] = current;
+    m_face_value[face] = text;
 }
 
 void Cube::rotate(const char axis)

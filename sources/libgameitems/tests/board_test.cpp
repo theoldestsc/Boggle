@@ -59,7 +59,11 @@ class BoardTest : public QObject
             //std::cout << map << std::endl;
             auto cube = Cube({'A', 'B', 'C', 'D', 'E', 'F'});
             //ПО икс верный поворот, оставить как тест
-            cube.rotate('x');
+            //cube.rotate('x');
+            //ASSERTION check exception index out of range
+            //cube.setTextToSide(FACE::TOP, '+');
+            cube.setTextToSide(FACE::TOP, 'D');
+        
             std::cout << " TOP: " << cube.getSideText(FACE::TOP)
                       << " BOTTOM: " << cube.getSideText(FACE::BOTTOM)
                       << " LEFT: " << cube.getSideText(FACE::LEFT)
