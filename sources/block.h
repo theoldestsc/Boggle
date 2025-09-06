@@ -1,6 +1,8 @@
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QPolygonF>
+#include <QBitmap>
+#include <QPainter>
 #include <array>
 #include <cassert>
 

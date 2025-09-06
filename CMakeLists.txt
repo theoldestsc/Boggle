@@ -12,22 +12,20 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Test)
 # Исходные файлы
 set(SOURCES
     main.cpp
-    sources/block.h
+    game_window.cpp
 )
 
 # Собираю как статическую библиотеку
 #-----------------------------------------------------------
-add_library(loader STATIC sources/libloader/src/loader.h
-                          sources/libloader/src/loader.cpp)
+add_library(loader STATIC sources/libloader/src/loader.cpp)
 target_link_libraries(loader PRIVATE Qt6::Core Qt6::Gui)
 #-----------------------------------------------------------
 
 # Собираю как статическую библиотеку
 #-----------------------------------------------------------
-add_library(gameitems STATIC sources/libgameitems/src/board.h
-                             sources/libgameitems/src/board.cpp
-                             sources/libgameitems/src/cube.h
-                             sources/libgameitems/src/cube.cpp)
+add_library(gameitems STATIC 
+                            sources/libgameitems/src/board.cpp
+                            sources/libgameitems/src/cube.cpp)
 target_link_libraries(gameitems PRIVATE Qt6::Core Qt6::Gui)
 #-----------------------------------------------------------
 
@@ -39,10 +37,10 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${RESOURCES})
 
 # Подключение Qt модулей
 target_link_libraries(${PROJECT_NAME} PRIVATE
-                      Qt6::Core
-                      Qt6::Gui
-                      Qt6::Widgets
                       loader
+                      gameitems
+                      Qt6::Widgets
+                      Qt6::Core Qt6::Gui
 )
 
 

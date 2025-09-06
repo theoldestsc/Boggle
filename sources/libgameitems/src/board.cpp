@@ -18,7 +18,7 @@ TODO: Класс BoadrdGenerator.
     TODO: m_map должен быть набором уже объектов класса CUBE,
     который можно повернуть и сменить у него current_top()
 */
-constexpr auto CUBES = std::to_array<std::array<char, N_CUBE_EDGES>>({
+static auto CUBES = std::to_array<std::array<char, N_CUBE_EDGES>>({
                                             {'A', 'A', 'A', 'F', 'R', 'S'},
                                             {'A', 'A', 'E', 'E', 'E', 'E'},
                                             {'A', 'A', 'F', 'I', 'R', 'S'},
@@ -52,7 +52,8 @@ constexpr auto CUBES = std::to_array<std::array<char, N_CUBE_EDGES>>({
 
 
 
-Board::Board() : m_map(N_ROW_SIZE, std::vector<char>(N_ROW_SIZE, ' '))
+Board::Board():
+      m_map(5, std::vector<Cube>(5, Cube({' ', ' ', ' ', ' ', ' ', ' '})))
 {
 
 }
@@ -60,36 +61,36 @@ Board::Board() : m_map(N_ROW_SIZE, std::vector<char>(N_ROW_SIZE, ' '))
 //TODO: Проверить какое будет исключение и будет ли если зайти за пределы массива
 void Board::set_cell_value(size_t row,
                            size_t column,
-                           const char& ch)
+                           const Cube& cube)
 {
     assert(!m_map.empty());
     assert(row < m_map.size());
     assert(column < m_map.at(0).size());
-    m_map[row][column] = ch;
+    m_map[row][column] = cube;
 }
 
-//TODO: generate cubes from words
+/*TODO: generate MAP from words*/
 void Board::generate_map()
 {
     // Инициализируем генератор текущим временем
     std::srand(std::time(0));
-
     for(size_t row = 0; row < m_map.size(); ++row)
     {
-        for(size_t column = 0; column < m_map.at(row).size(); ++column)
+        auto row_size = m_map.at(row).size();
+        for(size_t column = 0; column < row_size; ++column)
         {
             // Генерируем случайный индекс
-            auto& cube = CUBES[row + column];
+            auto& cube = CUBES.at(row * row_size + column);
             int random_index = std::rand() % 6;
             char random_element = cube[random_index];
-            m_map[row][column] = random_element;
+            m_map[row][column] = Cube(cube);//random_element;
         }
     }
 
 }
 
 
-const std::vector<std::vector<char>>& Board::get_map() const
+const std::vector<std::vector<Cube>>& Board::get_map() const
 {
     return m_map;
 }
